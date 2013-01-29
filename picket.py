@@ -48,8 +48,6 @@ def before_request():
 # Login form
 @app.route(site_config.ROUTE_LOGIN, methods=['GET', 'POST'])
 def login():
-    # placeholder
-    return render_template('login.html')
     # If user is logged in, send them directly to content
     if user_logged_in(g.user):
         flash('Welcome back, ' + g.user.username + '!',
@@ -57,10 +55,12 @@ def login():
         return redirect(url_for('manage'))
     # If the login form is valid (username and password are filled in),
     # proceed with attempting login
-    if login_form.validate_on_submit():
-        remember_me = login_form.data['remember_me']
-        username = login_form.data['username']
-        password = login_form.data['password']
+    if request.method == 'POST':
+        remember_me = True # do I want to change this?
+        print request.form
+        data = request.form
+        username = data['username']
+        password = data['password']
         # Grab user object from user object dictionary
         user_obj = get_user(username, ALL_USERS)
         # Check for valid username
@@ -73,7 +73,7 @@ def login():
                     flash(g.user.username + ' logged in successfully.',
                           'success')
                     return redirect(request.args.get('next') or
-                                    url_for('content'))
+                                    url_for('manage'))
                 # Uh oh. Something went wrong
                 else:
                     # User isn't active. They can't login.
@@ -90,7 +90,7 @@ def login():
         # Bad username
         else:
             flash('Invalid username or password.', 'warning')
-    return render_template('login.html', form=login_form)
+    return render_template('login.html')
 
 # Main logged-in content page
 @app.route(site_config.ROUTE_MANAGE)
