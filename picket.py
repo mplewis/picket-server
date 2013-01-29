@@ -6,11 +6,10 @@ from flask.ext.login import (LoginManager, current_user, login_required,
 from flask.ext.uploads import (UploadSet, configure_uploads, IMAGES,
                                UploadNotAllowed)
 
-import site_config
-from site_users import get_user, load_users_from_file
-from site_forms import LoginForm
-from site_upload import allowed_file
-from fn_utils import gen_pleasing_fn, fn_split
+from modules import site_config
+from modules.site_users import get_user, load_users_from_file
+from modules.site_upload import allowed_file
+from modules.fn_utils import gen_pleasing_fn, fn_split
 
 # Flask app
 app = Flask(__name__)
@@ -49,12 +48,13 @@ def before_request():
 # Login form
 @app.route(site_config.ROUTE_LOGIN, methods=['GET', 'POST'])
 def login():
+    # placeholder
+    return render_template('login.html')
     # If user is logged in, send them directly to content
     if user_logged_in(g.user):
         flash('Welcome back, ' + g.user.username + '!',
               'info')
         return redirect(url_for('manage'))
-    login_form = LoginForm()
     # If the login form is valid (username and password are filled in),
     # proceed with attempting login
     if login_form.validate_on_submit():

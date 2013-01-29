@@ -8,7 +8,7 @@
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title>{% block title %}{endblock}</title>
+	<title>{% block title %}{% endblock %}</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
@@ -18,9 +18,10 @@
 
 	<!-- CSS
   ================================================== -->
-	<link rel="stylesheet" href="stylesheets/base.css">
-	<link rel="stylesheet" href="stylesheets/skeleton.css">
-	<link rel="stylesheet" href="stylesheets/layout.css">
+	<link rel="stylesheet" href="static/css/base.css">
+	<link rel="stylesheet" href="static/css/skeleton.css">
+	<link rel="stylesheet" href="static/css/layout.css">
+	<link rel="stylesheet" href="static/css/jquery.gritter.css">
 
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -28,16 +29,15 @@
 
 	<!-- Favicons
 	================================================== -->
-	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="shortcut icon" href="static/images/favicon.ico">
 	
 	<!-- Scripts
 	================================================== -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="static/js/jquery.gritter.min.js"></script>
 
 </head>
 <body>
-
-
 
 	<!-- Primary Page Layout
 	================================================== -->
@@ -46,6 +46,7 @@
 
 	<div class="container">
 		<div class="sixteen columns">
+			{% block content %}{% endblock %}
 			<h1 class="remove-bottom" style="margin-top: 40px">Skeleton</h1>
 			<h5>Version 1.2</h5>
 			<hr />
