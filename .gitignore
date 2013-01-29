@@ -1,2 +1,5 @@
 *.sublime-project
 *.sublime-workspace
+*.pyc
+users.yml
+modules/site_config.py

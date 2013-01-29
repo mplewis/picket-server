@@ -1,0 +1,19 @@
+# Remember to rename me to users.yml and add actual users before running!
+
+users:
+    -
+        username: matt
+        password: spirit
+        active: Yes
+    -
+        username: drew
+        password: maiden
+        active: Yes
+    -
+        username: jake
+        password: meepo
+        active: Yes
+    -
+        username: baddie
+        password: treant
+        active: No
