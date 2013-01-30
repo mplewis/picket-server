@@ -1,27 +1,26 @@
 {% extends 'base.html' %}
 
 {% block title %}
-	Login: Picket
+    Login: Picket
 {% endblock %}
 
 {% block head %}
-	<script src="/static/js/abs-center.js"></script>
+    <script src="/static/js/abs-center.js"></script>
 {% endblock %}
 
 {% block content %}
 
 <div id="loginmaster" class="login abs-center rounded shadowed">
-	<div class="branding branding-large">picket!</div>
-	<form id="loginform" method="POST">
-		<div id="loginfields">
-	        <input type="text" name="username" id="username" placeholder="Username">
-	        <input type="password" name="password" id="password" placeholder="Password">
+    <div class="branding branding-large">picket!</div>
+    <form id="loginform" method="POST">
+        <div id="loginfields">
+            <input type="text" name="username" id="username" placeholder="Username">
+            <input type="password" name="password" id="password" placeholder="Password">
         </div>
-	    <button type="submit" name="login" id="loginbutton">
-	        <i class="icon-arrow-right"></i>
-	        <span>Log in</span>
-	    </button>
-	</form>
+        <button type="submit" name="login" id="loginbutton">
+            Log in
+        </button>
+    </form>
 </div>
 
 {% endblock %}
