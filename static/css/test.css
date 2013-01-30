@@ -120,7 +120,6 @@ div.login {
     font-size: 24px;
 }
 
-
 /* Text inputs */
 
 input[type="text"], input[type="password"], input[type="email"],
@@ -159,9 +158,4 @@ input[type="button"] {
         -ms-transition-timing-function: cubic-bezier(0.250, 0.100, 0.250, 1.000); 
          -o-transition-timing-function: cubic-bezier(0.250, 0.100, 0.250, 1.000); 
             transition-timing-function: cubic-bezier(0.250, 0.100, 0.250, 1.000); /* ease (default) */
-}
-
-/* Checkboxes */
-input[type="checkbox"] {
-
 }
