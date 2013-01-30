@@ -39,6 +39,13 @@
     <script src="/static/js/jquery.gritter.min.js"></script>
 
     <script type="text/javascript">
+        // fallback to display login page anyway after 1 second
+        // FIXME: add throbber
+        $(document).ready(function() {
+            setInterval(function() {
+                $(window).resize()
+            }, 1000);            
+        });
         WebFontConfig = {
             google: { families: [ 'Crete+Round:400,400italic:latin', 'McLaren::latin' ] },
             loading: function() {
@@ -56,12 +63,6 @@
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(wf, s);
         })();
-
-        // fallback to display login page anyway after 1 second
-        // FIXME: add throbber
-        setInterval(function() {
-            $(window).resize()
-        }, 1000);
     </script>
 
 
