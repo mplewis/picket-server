@@ -3,3 +3,4 @@
 *.pyc
 users.yml
 modules/site_config.py
+uploads/*
