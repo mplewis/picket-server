@@ -146,6 +146,12 @@ def logout():
     # Send them to the homepage
     return redirect(url_for('login'))
 
+# /logout (without slash) redirects to /logout/
+@app.route(site_config.ROUTE_LOGOUT_FIX)
+@login_required
+def logout_fix():
+    return redirect(url_for('logout'))
+
 # Serve the file requested
 @app.route(site_config.ROUTE_VIEW + '<filename>')
 def view(filename):
