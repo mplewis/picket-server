@@ -1,12 +1,81 @@
 /* Custom styles */
 
+/* Skeleton overrides */
+
+/* Text inputs */
+
+input[type="text"], input[type="password"], input[type="email"],
+textarea, select {
+    font-family: "Crete Round", "Georgia", serif;
+    margin-bottom: 0px;
+}
+
+/* Labels */
+
+label,
+legend {
+
+}
+
+/* Buttons */
+
+.button,
+button,
+input[type="submit"],
+input[type="reset"],
+input[type="button"] {
+    font-family: "Crete Round", "Georgia", serif;
+
+    -webkit-transition: all 200ms cubic-bezier(0.250, 0.100, 0.250, 1.000); 
+       -moz-transition: all 200ms cubic-bezier(0.250, 0.100, 0.250, 1.000); 
+        -ms-transition: all 200ms cubic-bezier(0.250, 0.100, 0.250, 1.000); 
+         -o-transition: all 200ms cubic-bezier(0.250, 0.100, 0.250, 1.000); 
+            transition: all 200ms cubic-bezier(0.250, 0.100, 0.250, 1.000); /* ease (default) */
+
+    -webkit-transition-timing-function: cubic-bezier(0.250, 0.100, 0.250, 1.000); 
+       -moz-transition-timing-function: cubic-bezier(0.250, 0.100, 0.250, 1.000); 
+        -ms-transition-timing-function: cubic-bezier(0.250, 0.100, 0.250, 1.000); 
+         -o-transition-timing-function: cubic-bezier(0.250, 0.100, 0.250, 1.000); 
+            transition-timing-function: cubic-bezier(0.250, 0.100, 0.250, 1.000); /* ease (default) */
+}
+
+/* Overarching styles */
+
+body {
+    color: #f9f8d5;
+}
+
 /* Container styles */
 
-.rounded {
+.rounded-lg {
     -moz-border-radius: 10px;
         -webkit-border-radius: 10px;
         border-radius: 10px; /* future proofing */
         -khtml-border-radius: 10px; /* for old Konqueror browsers */
+}
+
+.rounded-md {
+    -moz-border-radius: 8px;
+        -webkit-border-radius: 8px;
+        border-radius: 8px; /* future proofing */
+        -khtml-border-radius: 8px; /* for old Konqueror browsers */
+}
+
+.rounded-sm {
+    -moz-border-radius: 6px;
+        -webkit-border-radius: 6px;
+        border-radius: 6px; /* future proofing */
+        -khtml-border-radius: 6px; /* for old Konqueror browsers */
+}
+
+.no-round-l {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.no-round-r {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 .shadowed {
@@ -19,10 +88,6 @@
 .big-button {
     font-size: 150%;
     height: 150%;
-}
-
-.control-group > * {
-    vertical-align: middle;
 }
 
 /* "picket!" + logo styles */
@@ -57,22 +122,20 @@ div.login {
     display: block;
 }
 
-/* Skeleton overrides */
-
 /* Forms */
 
-#loginmaster {
+.form-container {
     display: none;
 }
 
-#loginform {
+.two-field-form {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 350px;
 }
 
-#loginfields {
+.form-fields {
     width: 70%;
     display: inline-block;
     float: left;
@@ -118,44 +181,4 @@ div.login {
     border-bottom-left-radius: 0px;
     border-top-left-radius: 0px;
     font-size: 24px;
-}
-
-/* Text inputs */
-
-input[type="text"], input[type="password"], input[type="email"],
-textarea, select {
-    font-family: "Crete Round", "Georgia", serif;
-    margin-bottom: 0px;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    border-radius: 8px;
-}
-
-/* Labels */
-
-label,
-legend {
-
-}
-
-/* Buttons */
-
-.button,
-button,
-input[type="submit"],
-input[type="reset"],
-input[type="button"] {
-    font-family: "Crete Round", "Georgia", serif;
-
-    -webkit-transition: all 200ms cubic-bezier(0.250, 0.100, 0.250, 1.000); 
-       -moz-transition: all 200ms cubic-bezier(0.250, 0.100, 0.250, 1.000); 
-        -ms-transition: all 200ms cubic-bezier(0.250, 0.100, 0.250, 1.000); 
-         -o-transition: all 200ms cubic-bezier(0.250, 0.100, 0.250, 1.000); 
-            transition: all 200ms cubic-bezier(0.250, 0.100, 0.250, 1.000); /* ease (default) */
-
-    -webkit-transition-timing-function: cubic-bezier(0.250, 0.100, 0.250, 1.000); 
-       -moz-transition-timing-function: cubic-bezier(0.250, 0.100, 0.250, 1.000); 
-        -ms-transition-timing-function: cubic-bezier(0.250, 0.100, 0.250, 1.000); 
-         -o-transition-timing-function: cubic-bezier(0.250, 0.100, 0.250, 1.000); 
-            transition-timing-function: cubic-bezier(0.250, 0.100, 0.250, 1.000); /* ease (default) */
 }

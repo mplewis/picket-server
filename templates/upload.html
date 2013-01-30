@@ -5,5 +5,43 @@
 {% endblock %}
 
 {% block content %}
-	This is the upload page.
+
+<div class="container">
+	<form id="uploadform" method="POST" enctype="multipart/form-data">
+        
+        <input type="file" id="upload" name="upload" style="display: none;">
+        
+        <div class="formgroup"></div>
+
+        <div class="formgroup">
+        	<span id="browselabel">File</span>
+        	<input type="text" id="browsetext" class="rounded-sm no-round-r" onclick="$('#browsebutton').click();" readonly>
+        	<a id="browsebutton" class="button rounded-sm no-round-l" onclick="$('#upload').click(); return false;">Browse</a>
+        </div>
+        
+        <div class="formgroup">
+        	<span id="saveaslabel">Save as</span>
+        	<input type="text" id="saveastext" name="saveas" value="{{ default_fn }}" class="rounded-sm" style="text-align: right;">
+        	<span id="extension"><em>.extension</em></span>
+        </div>
+        
+        <div class="formgroup">
+        	<a type="submit" id="submitbutton" class="button rounded-sm" onclick="$('#uploadform').submit();">Submit</a>
+        	<button type="submit" id="submitbutton" class="button rounded-sm" onclick="$('#uploadform').submit();">Submit</button>
+        	<a class="button rounded-sm" href="{{ url_for('manage') }}" id="cancelbutton">Cancel</a>
+        </div>
+        
+    </form>
+</div>
+
+<script>
+    $('#upload').change(function() {
+    	var filename = $('#upload').val().replace("C:\\fakepath\\", "")
+        $('#browsetext').val(filename);
+        var fnSplit = filename.split('.');
+        var extension = fnSplit[fnSplit.length - 1];
+        $('#extension').text('.' + extension);
+    });
+</script>
+
 {% endblock %}
