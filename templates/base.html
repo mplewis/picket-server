@@ -5,60 +5,67 @@
 <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <head>
 
-	<!-- Basic Page Needs
+    <!-- Basic Page Needs
   ================================================== -->
-	<meta charset="utf-8">
-	<title>{% block title %}{% endblock %}</title>
-	<meta name="description" content="">
-	<meta name="author" content="">
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-	<!-- Mobile Specific Metas
+    <!-- Mobile Specific Metas
   ================================================== -->
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-	<!-- CSS
+    <!-- CSS
   ================================================== -->
-	<link rel="stylesheet" href="/static/css/base.css">
-	<link rel="stylesheet" href="/static/css/skeleton.css">
-	<link rel="stylesheet" href="/static/css/layout.css">
-	<link rel="stylesheet" href="/static/css/jquery.gritter.css">
-	<link rel="stylesheet" href="/static/css/test.css">
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/skeleton.css">
+    <link rel="stylesheet" href="/static/css/layout.css">
+    <link rel="stylesheet" href="/static/css/jquery.gritter.css">
+    <link rel="stylesheet" href="/static/css/test.css">
 
-	<!--[if lt IE 9]>
-		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
+    <!--[if lt IE 9]>
+        <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-	<!--link href='http://fonts.googleapis.com/css?family=Crete+Round:400,400italic|McLaren' rel='stylesheet' type='text/css'-->
+    <!-- Favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="/static/images/favicon.ico">
+    
+    <!-- Scripts
+    ================================================== -->
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="/static/js/jquery.gritter.min.js"></script>
 
-	<!-- Favicons
-	================================================== -->
-	<link rel="shortcut icon" href="/static/images/favicon.ico">
-	
-	<!-- Scripts
-	================================================== -->
-	
-	<script type="text/javascript">
-	    WebFontConfig = {
-	        google: { families: [ 'Crete+Round:400,400italic:latin', 'McLaren::latin' ] },
-	        loading: function() {
-	        	$(window).resize();
-	        }
-	    };
-	    (function() {
-	        var wf = document.createElement('script');
-	        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
-	            '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-	        wf.type = 'text/javascript';
-	        wf.async = 'true';
-	        var s = document.getElementsByTagName('script')[0];
-	        s.parentNode.insertBefore(wf, s);
-	    })();
+    <script type="text/javascript">
+        WebFontConfig = {
+            google: { families: [ 'Crete+Round:400,400italic:latin', 'McLaren::latin' ] },
+            loading: function() {
+                // update the window (this unhides the login view)
+                // this is necessary because we need to recenter the view once we load the googlefonts
+                $(window).resize();
+            }
+        };
+        (function() {
+            var wf = document.createElement('script');
+            wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+                '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+            wf.type = 'text/javascript';
+            wf.async = 'true';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(wf, s);
+        })();
+
+        // fallback to display login page anyway after 1 second
+        // FIXME: add throbber
+        setInterval(function() {
+            $(window).resize()
+        }, 1000);
     </script>
 
-	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-	<script src="/static/js/jquery.gritter.min.js"></script>
 
-	{% block head %}{% endblock %}
+    {% block head %}{% endblock %}
 
 </head>
 <body>
@@ -67,6 +74,62 @@
 ================================================== -->
 
 {% block content %}{% endblock %}
+
+<!-- Flask flashed messages
+================================================== -->
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <script src="/static/js/noty/jquery.noty.js"></script>
+        <script src="/static/js/noty/themes/default.js"></script>
+        <script src="/static/js/noty/layouts/top.js"></script>
+        <script>
+            $.noty.defaults = {
+                layout: 'top',
+                theme: 'defaultTheme',
+                type: 'information',
+                text: '',
+                dismissQueue: true, // If you want to use queue feature set this true
+                template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
+                animation: {
+                    open: {height: 'toggle'},
+                    close: {height: 'toggle'},
+                    easing: 'swing',
+                    speed: 500 // opening & closing animation speed
+                },
+                timeout: 5000, // delay for closing event. Set false for sticky notifications
+                force: false, // adds notification to the beginning of queue when set to true
+                modal: false,
+                closeWith: ['click'], // ['click', 'button', 'hover']
+                callback: {
+                    onShow: function() {},
+                    afterShow: function() {},
+                    onClose: function() {},
+                    afterClose: function() {}
+                },
+                buttons: false // an array of buttons
+            };
+        </script>
+        {% for category, message in messages %}
+            <script>
+                var msgTime = 5000; // flash message for 5 seconds
+                var category = "{{ category }}";
+                // default to blue information alerts
+                if (category == "" || category == "message") {
+                    category = "information";
+                } else if (category == "warning") {
+                    msgTime = false; // make warning messages sticky (doesn't close automatically)
+                }
+                noty({
+                    layout: 'top',
+                    timeout: msgTime,
+                    type: category,
+                    text: "{{ message }}"
+                });
+            </script>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
 
 <!-- End Document
 ================================================== -->

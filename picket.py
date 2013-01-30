@@ -22,14 +22,15 @@ configure_uploads(app, images)
 # Login
 login_manager = LoginManager()
 login_manager.login_view = 'login'
-login_manager.login_message = 'You need to login to access this page.'
-
-# Load users from disk into memory
-ALL_USERS = load_users_from_file()
+login_manager.login_message = 'You need to log in to access this page.'
 
 # Loads a single user for the login manager
 @login_manager.user_loader
 def load_user(user_id):
+    # Load users from disk into memory every time a user object is referenced
+    # This should keep our user database current at all times.
+    # Is this a good idea?
+    ALL_USERS = load_users_from_file()
     return get_user(user_id, ALL_USERS)
 
 # Shortcut function to simplify checking whether a user is logged in
@@ -51,20 +52,26 @@ def login():
     # If user is logged in, send them directly to content
     if user_logged_in(g.user):
         flash('Welcome back, ' + g.user.username + '!',
-              'info')
+              'information')
         return redirect(url_for('manage'))
     # If the login form is valid (username and password are filled in),
     # proceed with attempting login
     if request.method == 'POST':
-        remember_me = True # do I want to change this?
-        print request.form
+        remember_me = True # defaults to remember me, do I want to change this?
         data = request.form
         username = data['username']
         password = data['password']
+        # Load users from file
+        ALL_USERS = load_users_from_file()
         # Grab user object from user object dictionary
         user_obj = get_user(username, ALL_USERS)
+        # Check for empty username and password
+        if username.strip() == '':
+            flash('You need to provide a username.', 'information')
+        elif password == '':
+            flash('You need to provide a password.', 'information')
         # Check for valid username
-        if username in ALL_USERS:
+        elif username in ALL_USERS:
             # Check user's password
             if user_obj.check_password(password):
                 # Try logging in!
