@@ -118,8 +118,8 @@
                 // default to blue information alerts
                 if (category == "" || category == "message") {
                     category = "information";
-                } else if (category == "warning") {
-                    msgTime = false; // make warning messages sticky (doesn't close automatically)
+                } else if (category == "warning" || category == "error") {
+                    msgTime = false; // make warning and error messages sticky (won't close automatically)
                 }
                 noty({
                     layout: 'top',
