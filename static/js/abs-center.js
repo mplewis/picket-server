@@ -6,7 +6,7 @@ $(document).ready(function(){
 		items.css({
 			position:'absolute',
 			left: ($(window).width() - $('.abs-center').outerWidth()) / 2,
-			top: ($(window).height() - $('.abs-center').outerHeight()) / 2;
+			top: ($(window).height() - $('.abs-center').outerHeight()) / 2
 		});
 		// fade in login box once it's rendered
 		items.fadeIn('slow');
