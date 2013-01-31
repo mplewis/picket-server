@@ -10,16 +10,20 @@
 
 {% block content %}
 
-<div id="loginmaster" class="login abs-center rounded shadowed">
+<div class="form-container login abs-center rounded shadowed" style="display: none;">
     <div class="branding branding-large">picket!</div>
-    <form id="loginform" method="POST">
-        <div id="loginfields">
+    <form class="no-margin" method="POST">
+        <div class="control-group no-margin">
             <input type="text" name="username" id="username" placeholder="Username">
+        </div>
+        <div class="control-group no-margin">
             <input type="password" name="password" id="password" placeholder="Password">
         </div>
-        <button type="submit" name="login" id="loginbutton">
-            Log in
-        </button>
+        <div class="control-group no-margin">
+            <button class="btn btn-primary" type="submit" name="login" id="loginbutton">
+                Log in
+            </button>
+        </div>
     </form>
 </div>
 

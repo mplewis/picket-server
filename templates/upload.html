@@ -1,9 +1,68 @@
 {% extends 'base.html' %}
 
 {% block title %}
-	Upload: Picket
+    Upload: Picket
 {% endblock %}
 
 {% block content %}
-	This is the upload page.
+
+<div class="container">
+    <form id="upload-form" method="POST" enctype="multipart/form-data">
+        
+        <input type="file" id="upload-file" name="upload-file" style="display: none;">
+        
+        <div class="control-group">
+            <div class="controls input-prepend input-append">
+                <a href="" id="browse-btn" class="btn" onclick="$('#upload-file').click(); return false;">Browse</a>
+                <input type="text" name="browse-text" id="browse-text" class="disabled" readonly onclick="$('#upload-file').click(); return false;" placeholder="Select file...">
+                <span class="add-on">&rarr; upload as:</span>
+                <input type="text" name="file-name" id="file-name" class="input-small" style="text-align: right;" value="{{ default_fn }}">
+                <input type="text" name="file-ext" id="file-ext" value=".extension" class="input-small disabled" readonly>
+                <a id="submit-form" class="btn btn-primary">Upload</a>
+            </div>
+        </div>
+        
+    </form>
+</div>
+
+<script>
+    var filename = '';
+    var extension = '';
+    function getExtension(filename) {
+        var fnSplit = filename.split('.');
+        var extension = fnSplit[fnSplit.length - 1].toLowerCase();
+        return extension;
+    }
+    function validateExtension(extension) {
+        extension = extension.toLowerCase();
+        var allowedExtensions = ['jpg', 'jpe', 'jpeg', 'png', 'gif', 'svg', 'bmp']
+        var searchResult = allowedExtensions.indexOf(extension);
+        if (searchResult > -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    $("#submit-form").click(function() {
+        if (validateExtension(getExtension(filename))) {
+            $('#upload-form').submit();
+        } else {
+            /*
+            noty({
+                layout: 'top',
+                timeout: false,
+                type: 'error',
+                text: 'You may only upload image files.'
+            });
+            */
+        }
+    });
+    $('#upload-file').change(function() {
+        filename = $('#upload-file').val().replace("C:\\fakepath\\", "")
+        $('#browse-text').val(filename);
+        extension = getExtension(filename);
+        $('#file-ext').val('.' + extension);
+    });
+</script>
+
 {% endblock %}
