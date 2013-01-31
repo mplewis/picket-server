@@ -4,6 +4,10 @@
     Upload: Picket
 {% endblock %}
 
+{% block head %}
+    <script src="/static/js/load-image.min.js"></script>
+{% endblock %}
+
 {% block content %}
 
 <div class="container">
@@ -25,16 +29,24 @@
         </div>
         
     </form>
+
+    <div class="image-preview"></div>
 </div>
 
 <script>
     var filename = '';
     var extension = '';
+
+    // snips the extension off a file
+    // NOTE: for a file named 'fish.babel.tar.gz', it returns '.gz'; be careful!
     function getExtension(filename) {
         var fnSplit = filename.split('.');
         var extension = fnSplit[fnSplit.length - 1].toLowerCase();
         return extension;
     }
+    
+    // makes sure the file is an image.
+    // FIXME: these values are hardcoded and ugly
     function validateExtension(extension) {
         extension = extension.toLowerCase();
         var allowedExtensions = ['jpg', 'jpe', 'jpeg', 'png', 'gif', 'svg', 'bmp']
@@ -45,26 +57,59 @@
             return false;
         }
     }
+
+    // do validation of form elements
     $("#submit-form").click(function() {
+        var saveFileAs = $('#file-name').val();
+        // check that user has selected a file
         if (filename == '') {
             noty({
                 type: 'warning',
                 text: 'No file selected for upload.'
             });
-        } else if (validateExtension(getExtension(filename))) {
-            $('#upload-form').submit();
-        } else {
+        // validate the file extension; flask will not accept files with non-image extensions
+        } else if (!validateExtension(getExtension(filename))) {
             noty({
-                type: 'error',
+                type: 'warning',
                 text: 'You may only upload image files.'
             });
+        // make sure the user has picked a name for the file
+        } else if (saveFileAs == '') {
+            noty({
+                type: 'warning',
+                text: 'No name provided for the uploaded file.'
+            });
+        // looks good, hit that!
+        } else {
+            $('#upload-form').submit();
         }
     });
+    // this runs when the file picker field changes in some way (file selected/unselected)
     $('#upload-file').change(function() {
+        // set filename and extension boxes to the fn/ext of the selected file
         filename = $('#upload-file').val().replace("C:\\fakepath\\", "")
         $('#browse-text').val(filename);
         extension = getExtension(filename);
-        $('#file-ext').val('.' + extension);
+
+        // if filename is empty, blank the image preview and restore the extension box to say '.extension'
+        if (filename == '') {
+            $('.image-preview').html('');
+            $('#file-ext').val('.extension');
+        // otherwise, get the file
+        } else {
+            $('#file-ext').val('.' + extension);
+            var file = event.target.files[0];
+            // make sure the file is an image
+            if (file.type.match('image.*')) {
+                // if it is, load it into the preview div
+                window.loadImage(
+                    file,
+                    function(img) {
+                        $('.image-preview').html(img);
+                    }
+                );
+            }
+        }
     });
 </script>
 
