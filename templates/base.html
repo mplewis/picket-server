@@ -89,7 +89,7 @@
     {% if messages %}
         {% for category, message in messages %}
             <script>
-                var msgTime = 5000; // flash message for 5 seconds
+                var msgTime = $.noty.defaults.timeout; // message closes automatically
                 var category = "{{ category }}";
                 // default to blue information alerts
                 if (category == "" || category == "message") {
