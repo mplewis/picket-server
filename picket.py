@@ -136,19 +136,20 @@ def upload():
 
 # Log out
 @app.route(site_config.ROUTE_LOGOUT)
-@login_required
 def logout():
-    # After logout_user(), g.user will be the Anonymous user.
-    # Save it so we know who we logged out.
-    username_logging_out = g.user.username
-    logout_user()
-    flash('You have been logged out, ' + username_logging_out + '.', 'success')
+    if not user_logged_in(g.user):
+        flash("You aren't logged in!", 'warning')
+    else:
+        # After logout_user(), g.user will be the Anonymous user.
+        # Save it so we know who we logged out.
+        username_logging_out = g.user.username
+        logout_user()
+        flash('You have been logged out, ' + username_logging_out + '.', 'success')
     # Send them to the homepage
     return redirect(url_for('login'))
 
 # /logout (without slash) redirects to /logout/
 @app.route(site_config.ROUTE_LOGOUT_FIX)
-@login_required
 def logout_fix():
     return redirect(url_for('logout'))
 
