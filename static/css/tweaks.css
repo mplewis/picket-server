@@ -63,7 +63,7 @@ div.branding-large {
 }
 
 .no-margin {
-    margin: 0 !important;
+    margin: 0;
 }
 
 /* Specific named elements for specific pages */
