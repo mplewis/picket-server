@@ -44,11 +44,15 @@
         }
     }
     $("#submit-form").click(function() {
-        if (validateExtension(getExtension(filename))) {
+        if (filename == '') {
+            noty({
+                type: 'warning',
+                text: 'No file selected for upload.'
+            });
+        } else if (validateExtension(getExtension(filename))) {
             $('#upload-form').submit();
         } else {
             noty({
-                timeout: false,
                 type: 'error',
                 text: 'You may only upload image files.'
             });
