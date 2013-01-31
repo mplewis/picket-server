@@ -112,10 +112,12 @@ def manage():
 def upload():
     # If submitting the form
     if request.method == 'POST':
+        print request.form
+        print request.files
         # Rename the image name to the name in the form while keeping the
         # extension the same
-        save_as_name = request.form.get('saveas')
-        uploaded_image = request.files.get('upload')
+        save_as_name = request.form.get('file-name')
+        uploaded_image = request.files.get('upload-file')
         original_fn = uploaded_image.filename
         original_name, original_ext = fn_split(original_fn)
         new_fn = save_as_name + '.' + original_ext
@@ -128,7 +130,7 @@ def upload():
             flash('Your upload was not allowed by the server.', 'error')
         # File was allowed through; redirect directly to the file
         else:
-            return redirect(url_for('uploaded_file', filename=filename))
+            return redirect(url_for('view', filename=filename))
     # Generate a nice filename to put in the "save as" box
     random_fn = gen_pleasing_fn(site_config.RANDOM_FN_LENGTH)
     # Render page with nice filename
