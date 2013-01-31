@@ -41,6 +41,7 @@
     <script src="/static/js/noty/jquery.noty.js"></script>
     <script src="/static/js/noty/themes/default.js"></script>
     <script src="/static/js/noty/layouts/top.js"></script>
+    <script src="/static/js/noty/layouts/topRight.js"></script>
     <script src="/static/js/set-noty-defaults.js"></script>
 
     <script type="text/javascript">
@@ -97,7 +98,6 @@
                     msgTime = false; // make warning and error messages sticky (won't close automatically)
                 }
                 noty({
-                    layout: 'top',
                     timeout: msgTime,
                     type: category,
                     text: "{{ message }}"
