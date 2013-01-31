@@ -7,7 +7,7 @@
 {% block content %}
 
 <div class="container">
-    <form id="uploadform" method="POST" enctype="multipart/form-data">
+    <form id="upload-form" method="POST" enctype="multipart/form-data">
         
         <input type="file" id="upload-file" name="upload-file" style="display: none;">
         
@@ -26,8 +26,8 @@
 </div>
 
 <script>
-    var filename = null;
-    var extension = null;
+    var filename = '';
+    var extension = '';
     function getExtension(filename) {
         var fnSplit = filename.split('.');
         var extension = fnSplit[fnSplit.length - 1].toLowerCase();
@@ -45,9 +45,16 @@
     }
     $("#submit-form").click(function() {
         if (validateExtension(getExtension(filename))) {
-            alert('This file is OK!');
+            $('#upload-form').submit();
         } else {
-            alert('You may only upload image files.');
+            /*
+            noty({
+                layout: 'top',
+                timeout: false,
+                type: 'error',
+                text: 'You may only upload image files.'
+            });
+            */
         }
     });
     $('#upload-file').change(function() {
