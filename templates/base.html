@@ -38,6 +38,10 @@
     
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="/static/js/jquery.gritter.min.js"></script>
+    <script src="/static/js/noty/jquery.noty.js"></script>
+    <script src="/static/js/noty/themes/default.js"></script>
+    <script src="/static/js/noty/layouts/top.js"></script>
+    <script src="/static/js/set-noty-defaults.js"></script>
 
     <script type="text/javascript">
         // fallback to display login page anyway after 1 second
@@ -82,10 +86,6 @@
 
 {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-        <script src="/static/js/noty/jquery.noty.js"></script>
-        <script src="/static/js/noty/themes/default.js"></script>
-        <script src="/static/js/noty/layouts/top.js"></script>
-        <script src="/static/js/set-noty-defaults.js"></script>
         {% for category, message in messages %}
             <script>
                 var msgTime = 5000; // flash message for 5 seconds
