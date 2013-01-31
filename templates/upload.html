@@ -47,14 +47,11 @@
         if (validateExtension(getExtension(filename))) {
             $('#upload-form').submit();
         } else {
-            /*
             noty({
-                layout: 'top',
                 timeout: false,
                 type: 'error',
                 text: 'You may only upload image files.'
             });
-            */
         }
     });
     $('#upload-file').change(function() {
