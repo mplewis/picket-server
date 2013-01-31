@@ -6,7 +6,7 @@ $(document).ready(function(){
         var topTemp = ($(window).height() - $('.abs-center').outerHeight()) / 2;
         topTemp = topTemp - topTemp % 2;
         items.css({
-            position:'absolute',
+            position: 'absolute',
             left: ($(window).width() - $('.abs-center').outerWidth()) / 2,
             top: topTemp
         });
