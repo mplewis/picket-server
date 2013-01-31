@@ -14,10 +14,10 @@
         <div class="control-group">
             <div class="controls input-prepend input-append">
                 <a href="" id="browse-btn" class="btn" onclick="$('#upload-file').click(); return false;">Browse</a>
-                <input type="text" name="browse-text" id="browse-text" class="disabled" readonly onclick="$('#upload-file').click(); return false;" placeholder="Select file...">
+                <input type="text" id="browse-text" class="disabled" readonly onclick="$('#upload-file').click(); return false;" placeholder="Select file...">
                 <span class="add-on">&rarr; upload as:</span>
                 <input type="text" name="file-name" id="file-name" class="input-small" style="text-align: right;" value="{{ default_fn }}">
-                <input type="text" name="file-ext" id="file-ext" value=".extension" class="input-small disabled" readonly>
+                <input type="text" id="file-ext" value=".extension" class="input-small disabled" readonly>
                 <a id="submit-form" class="btn btn-primary">Upload</a>
             </div>
         </div>
