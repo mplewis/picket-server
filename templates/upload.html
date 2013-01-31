@@ -15,7 +15,9 @@
             <div class="controls input-prepend input-append">
                 <a href="" id="browse-btn" class="btn" onclick="$('#upload-file').click(); return false;">Browse</a>
                 <input type="text" id="browse-text" class="disabled" readonly onclick="$('#upload-file').click(); return false;" placeholder="Select file...">
-                <span class="add-on">&rarr; upload as:</span>
+                <span class="add-on">
+                    <i class="icon-file"></i><i class="icon-arrow-right"></i><i class="icon-globe"></i> upload as:
+                </span>
                 <input type="text" name="file-name" id="file-name" class="input-small" style="text-align: right;" value="{{ default_fn }}">
                 <input type="text" id="file-ext" value=".extension" class="input-small disabled" readonly>
                 <a id="submit-form" class="btn btn-primary">Upload</a>
