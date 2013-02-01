@@ -10,27 +10,45 @@
 
 {% block content %}
 
-<div class="container">
-    <form id="upload-form" method="POST" enctype="multipart/form-data">
-        
-        <input type="file" id="upload-file" name="upload-file" style="display: none;">
-        
-        <div class="control-group">
-            <div class="controls input-prepend input-append">
-                <a href="" id="browse-btn" class="btn" onclick="$('#upload-file').click(); return false;">Browse</a>
-                <input type="text" id="browse-text" class="disabled" readonly onclick="$('#upload-file').click(); return false;" placeholder="Select file...">
-                <span class="add-on">
-                    <i class="icon-file"></i><i class="icon-arrow-right"></i><i class="icon-globe"></i> upload as:
-                </span>
-                <input type="text" name="file-name" id="file-name" class="input-small" style="text-align: right;" value="{{ default_fn }}">
-                <input type="text" id="file-ext" value=".extension" class="input-small disabled" readonly>
-                <a id="submit-form" class="btn btn-primary">Upload</a>
-            </div>
-        </div>
-        
-    </form>
 
-    <div class="image-preview"></div>
+<div class="container">
+    <div class="grey-foreground rounded shadowed" style="margin-top: 20px; padding: 25px; width: 1000px;">
+        <div>
+            <form id="upload-form" method="POST" enctype="multipart/form-data" style="margin-bottom: 0px;">
+                
+                <input type="file" id="upload-file" name="upload-file" style="display: none;">
+    
+                <div class="control-group" style="margin-left: auto; margin-right: auto;">
+                    <div class="controls input-prepend">
+                        <a id="browse-btn" class="btn" onclick="$('#upload-file').click(); return false;">Browse</a>
+                        <input type="text" id="browse-text" class="disabled" readonly onclick="$('#upload-file').click(); return false;" placeholder="Select file...">
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls input-prepend input-append hide-when-no-image">
+                        <span class="add-on">
+                            <i class="icon-file"></i><i class="icon-arrow-right"></i><i class="icon-globe"></i> Upload as:
+                        </span>
+                        <input type="text" name="file-name" id="file-name" class="input-small" style="text-align: right;" value="{{ default_fn }}">
+                        <span id="file-ext" class="add-on">
+                            <!-- file extension goes here --> 
+                        </span>
+                    </div>
+                </div>
+                <div class="image-preview rounded hide-when-file-is-not-image" style="margin-bottom: 10px;">
+                    <!-- img tag goes here -->
+                </div>
+                <div class="control-group" style="margin-bottom: 0px;">
+                    <div class="controls">
+                        <a id="submit-form" class="disabled disable-when-no-image btn btn-primary"><i class="icon-ok icon-white"></i> Upload</a>
+                        <a href="{{ url_for('manage') }}" class="btn"><i class="icon-remove"></i> Cancel</a>
+                    </div>
+                </div>
+                
+            </form>
+            
+        </div>
+    </div>
 </div>
 
 <script>
@@ -84,29 +102,37 @@
             $('#upload-form').submit();
         }
     });
-    // this runs when the file picker field changes in some way (file selected/unselected)
+
+    // this runs when the file picker field changes in some way (new file picked)
     $('#upload-file').change(function() {
         // set filename and extension boxes to the fn/ext of the selected file
         filename = $('#upload-file').val().replace("C:\\fakepath\\", "")
         $('#browse-text').val(filename);
         extension = getExtension(filename);
-
         // if filename is empty, blank the image preview and restore the extension box to say '.extension'
         if (filename == '') {
-            $('.image-preview').html('');
-            $('#file-ext').val('.extension');
+            $('.hide-when-no-image').fadeOut();
+            $('hide-when-file-is-not-image').fadeOut();
+            $('.disable-when-no-image').addClass('disabled');
         // otherwise, get the file
         } else {
-            $('#file-ext').val('.' + extension);
+            $('.hide-when-no-image').fadeIn();
+            $('.disable-when-no-image').removeClass('disabled');
+            $('#file-ext').text('.' + extension);
             var file = event.target.files[0];
             // make sure the file is an image
             if (file.type.match('image.*')) {
                 // if it is, load it into the preview div
+                $('.hide-when-file-is-not-image').fadeIn();
                 window.loadImage(
                     file,
                     function(img) {
-                        $('.image-preview').html(img);
-                    }
+                        var imagePreviewDiv = $('.image-preview');
+                        imagePreviewDiv.html(img);
+                        var imageElement = imagePreviewDiv.find('img');
+                        imageElement.addClass("rounded shadowed");
+                    },
+                    {maxWidth: 300}
                 );
             }
         }

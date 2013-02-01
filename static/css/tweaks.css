@@ -31,30 +31,43 @@ div.branding-large {
 /* Site layout */
 
 .rounded {
-    -moz-border-radius: 10px;
-        -webkit-border-radius: 10px;
-        border-radius: 10px; /* future proofing */
-        -khtml-border-radius: 10px; /* for old Konqueror browsers */
+    -webkit-border-radius: 10px;
+     -khtml-border-radius: 10px; /* for old Konqueror browsers */
+       -moz-border-radius: 10px;
+            border-radius: 10px; /* future proofing */
 }
 
 .shadowed {
     -webkit-box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
-        box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
 }
 
 .no-margin {
     margin: 0px;
 }
 
+/* Testing */
+
+.grey-foreground {
+    background-color: #45484b;
+    color: #f9f8d5;
+}
+
 /* Specific named elements for specific pages */
 
-div.login {
+.login {
     width: 400px;
-    /* height: 300px; */
     padding: 25px;
     background-color: #45484b;
     color: #f9f8d5;
     text-align: center;
+}
+
+/* Upload page; hide these elements when no image is
+ * selected, aka when the page loads for the first time
+ */
+.hide-when-no-image, .hide-when-file-is-not-image {
+    display: none;
 }
 
 /* Buttons */
